@@ -1,13 +1,24 @@
 
 package Main;
 
+import Component.Attendance;
+import Component.Class;
+
+import Component.Dashboard;
+import Component.ForgotPassword;
 import Component.PanelCover;
 import Component.PanelLoginAndRegister;
+import Component.task;
+import Component.Prof;
+import Component.StudentRecord;
+import Component.Students;
+import Component.Students;
+import Component.dashboardadm;
+import Component.logg;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 import org.jdesktop.animation.timing.Animator;
@@ -138,7 +149,23 @@ public class main extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+//               new main().setVisible(true);
+//                new Dashboard().setVisible(true);
+//                new Students().setVisible(true);
+//                new Attendance().setVisible(true);
+//                new Prof().setVisible(true);
+//                new Class().setVisible(true);
+//                new task().setVisible(true);
+//                new exams().setVisible(true);
+//                new ForgotPassword().setVisible(true);
+//                  new StudentRecord().setVisible(true);
+//new Students().setVisible(true);
+//                new taskAdmin().setVisible(true);
+//                   new ClassAdmin().setVisible(true);
+//new dashboardadm().setVisible(true);
+new logg().setVisible(true);
+               
+
             }
         });
     }

@@ -10,9 +10,18 @@ import javax.swing.JButton;
 import swing.Button;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
-public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
+public class PanelLoginAndRegister extends javax.swing.JLayeredPane implements ActionListener{
 
+    Button loginButton;
+    Button cmd;
+    MyTextField txtUser ;
+    MyTextField txtEmail;
+    MyPasswordField txtPassword;
     
     public PanelLoginAndRegister() {
         initComponents();
@@ -30,27 +39,81 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setForeground(new Color(100, 20, 201 ));
         register.add(label);
         
-        MyTextField txtUser = new MyTextField();
+        txtUser= new MyTextField();
         txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/user.png")));
         txtUser.setHint("Username");
         
         register.add(txtUser, "w 50% , x 25%,y 35%");
-         MyTextField txtEmail = new MyTextField();
+        txtEmail = new MyTextField();
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/mail.png")));
         txtEmail.setHint("Email");
         register.add(txtEmail, "w 50% , x 25%,y 45%");
         
-        MyPasswordField txtPassword = new MyPasswordField();
+        txtPassword = new MyPasswordField();
         txtPassword.setPrefixIcon(new ImageIcon(getClass().getResource("/icon/pass.png")));
         txtPassword.setHint("Password");
         register.add(txtPassword, "w 50% , x 25%,y 55%");
-        Button cmd = new Button();
+        cmd = new Button();
         
         cmd.setBackground(new Color(100, 20, 201));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN UP");
         register.add(cmd, "w 40%, h 40");
+        
+        cmd.addActionListener(this);
     }
+    
+    @Override
+    public void actionPerformed(ActionEvent ae){
+        if(ae.getSource() == cmd ){
+        try{
+            conn conn = new conn();
+            String userName = txtUser.getText();
+            String email = txtEmail.getText();
+            String password = txtPassword.getText();
+
+            // Ensure that the table has a `username` column or modify the query to insert only into `email` and `password`
+            String query = "INSERT INTO users (username, email, password) VALUES ('" + userName + "', '" + email + "', '" + password + "')";
+            
+            conn.s.executeUpdate(query);
+            conn.s.close();
+            System.out.println("User registered successfully.");
+            JOptionPane.showMessageDialog(null, "User registered successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }
+        
+        else if(ae.getSource() == loginButton){
+        
+            try{
+            conn conn = new conn();
+            String email = txtEmail.getText();
+            String password = txtPassword.getText();
+            String query = "select * from users where email = '"+email+"' and password = '"+password+"'";
+            
+            
+            ResultSet rs = conn.s.executeQuery(query);
+            
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "Login Successful");
+                new dashboardadm().setVisible(true);
+                setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null, "Invalid");
+            }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+
+            }
+    }
+        
+    }
+    
+    
+    
+    
     
     private void initLogin(){
      login.setLayout(new MigLayout("wrap" , "push[center]push","push[]push"));
@@ -69,19 +132,16 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtPassword.setHint("Password");
         login.add(txtPassword, "w 50% , x 25%,y 40%");
         
-        JButton cmdForget = new JButton("Forgot your password ?");
-        cmdForget.setForeground(new Color(100, 100, 100));
-        cmdForget.setFont(new Font("sansserif", 1, 12));
-        cmdForget.setContentAreaFilled(false);
-        cmdForget.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        login.add(cmdForget,"w 40%,x 30%,y 65%");
-        Button cmd = new Button();
-        cmd.setBackground(new Color(100, 20, 201));
-        cmd.setForeground(new Color(250, 250, 250));
-        cmd.setText("Log In");
-        login.add(cmd, "w 40%,x 30%,y 55%");
+        
+        
+        loginButton = new Button();
+        loginButton.setBackground(new Color(100, 20, 201));
+        loginButton.setForeground(new Color(250, 250, 250));
+        loginButton.setText("Log In");
+        login.add(loginButton, "w 40%,x 30%,y 55%");
+        
+        loginButton.addActionListener(this);
     }
-    
      public void showRegister(boolean show) {
         if (show) {
             register.setVisible(true);
