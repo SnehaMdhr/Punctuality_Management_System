@@ -158,13 +158,13 @@ public class main extends javax.swing.JFrame {
 //                new task().setVisible(true);
 //                new exams().setVisible(true);
 //                new ForgotPassword().setVisible(true);
-//                  new StudentRecord().setVisible(true);
+                  new StudentRecord().setVisible(true);
 //new Students().setVisible(true);
 //                new taskAdmin().setVisible(true);
 //                   new ClassAdmin().setVisible(true);
 //new dashboardadm().setVisible(true);
-new logg().setVisible(true);
-               
+//new logg().setVisible(true);
+//               
 
             }
         });

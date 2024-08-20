@@ -50,6 +50,7 @@ public class StudentRecord extends javax.swing.JFrame {
         );
 
         jPanel1 = new RoundedPanel(50);
+        jPanel5 = new RoundedPanel(50);
         jPanel5.setBackground(new java.awt.Color(153, 51, 255));
 
         jLabel18.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
